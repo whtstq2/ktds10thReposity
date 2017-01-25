@@ -64,8 +64,8 @@ public class VendingMachine {
 		while (true) {
 			// 메뉴 출력
 			System.out.println("---------------------------------");
-			menu = String.format("1. 콜라(%d원) : %d개  |  2. 사이다(%d원) : %d개  |  3. 환타(%d원) : %d개  |  4. 구매 종료", COKE_PRICE, cokeStock,
-					CYDER_PRICE, cyderStock, FANTA_PRICE, fantaStock);
+			menu = String.format("1. 콜라(%d원) : %d개  |  2. 사이다(%d원) : %d개  |  3. 환타(%d원) : %d개  |  4. 구매 종료", 
+					COKE_PRICE, cokeStock, CYDER_PRICE, cyderStock, FANTA_PRICE, fantaStock);
 			System.out.println(menu);
 			System.out.println("---------------------------------");
 
@@ -78,7 +78,11 @@ public class VendingMachine {
 					if (insertedMoney >= COKE_PRICE) {
 						cokeStock -= 1;
 						buyer.putDrink(COKE);
-						insertedMoney -= COKE_PRICE;
+						insertedMoney -= COKE_PRICE;   //insertedMoney = insertedMoney-COKE_PRICE
+						//이게 두번째 샀을 때 잔액이 제대로 나오지 않는 이유는 insertedMoney가 계속 더해지기 때문 
+						buyer.getRemainMoney(insertedMoney);
+						this.money -= insertedMoney;  // x-=y -> x= x-y
+						
 					} else {
 						System.out.println("잔액이 부족합니다.");
 					}
@@ -88,9 +92,13 @@ public class VendingMachine {
 			} else if (selectedMenu == CYDER) {
 				if (cyderStock > 0) {
 					if (insertedMoney >= CYDER_PRICE) {
-						cokeStock -= 1;
+						cyderStock -= 1;
 						buyer.putDrink(CYDER);
 						insertedMoney -= CYDER_PRICE;
+						
+						buyer.getRemainMoney(insertedMoney);
+						this.money -= insertedMoney;
+						
 					} else {
 						System.out.println("잔액이 부족합니다.");
 					}
@@ -100,9 +108,13 @@ public class VendingMachine {
 			} else if (selectedMenu == FANTA) {
 				if (fantaStock > 0) {
 					if (insertedMoney >= FANTA_PRICE) {
-						cokeStock -= 1;
+						fantaStock -= 1;
 						buyer.putDrink(FANTA);
 						insertedMoney -= FANTA_PRICE;
+						
+						buyer.getRemainMoney(insertedMoney);
+						this.money -= insertedMoney;
+						
 					} else {
 						System.out.println("잔액이 부족합니다.");
 					}
@@ -110,8 +122,7 @@ public class VendingMachine {
 					System.out.println("재고가 부족합니다.");
 				}
 			} else if ( selectedMenu == 4 ) {
-				buyer.getRemainMoney(insertedMoney);
-				this.money -= insertedMoney;
+				System.out.println("안녕! 이제 가세요");
 				break;
 			}
 			
@@ -123,7 +134,7 @@ public class VendingMachine {
 	
 	@Override
 	public String toString() {
-		String message = String.format("콜라 개수 : %d | 사이다 개수 : %d | 환타 개수 : %d\n잔액 :%d", cokeStock, cyderStock, fantaStock, money);
+		String message = String.format("콜라 개수 : %d | 사이다 개수 : %d | 환타 개수 : %d\n수입 :%d", cokeStock, cyderStock, fantaStock, money);
 		return message;
 	}
 

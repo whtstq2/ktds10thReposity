@@ -4,21 +4,23 @@ import java.util.Scanner;
 
 public class Buyer {
 
-	private int money;
+	private int myMoney;
 	private int cokeStock;
 	private int cyderStock;
 	private int fantaStock;
+	
+	//음료수의 갯수는 0이라고 생각하여 받는 파라미터는 돈 뿐이다 
 
 	public Buyer(int money) {
-		this.money = money;
+		this.myMoney = money;
 	}
 	
 	public int getMoney() {
-		return money;
+		return myMoney;
 	}
 
 	public void setMoney(int money) {
-		this.money = money;
+		this.myMoney = money;
 	}
 
 	public int getCokeStock() {
@@ -51,7 +53,7 @@ public class Buyer {
 	 * @param insertedMoney
 	 */
 	public void buy(VendingMachine vendingMachine, int insertedMoney) {
-		this.money -= insertedMoney;
+		this.myMoney -= insertedMoney;
 		vendingMachine.sell(insertedMoney, this);
 	}
 	
@@ -82,12 +84,12 @@ public class Buyer {
 	 * @param remainMoney
 	 */
 	public void getRemainMoney(int remainMoney) {
-		this.money += remainMoney;
+		this.myMoney += remainMoney;
 	}
 	
 	@Override
 	public String toString() {
-		String message = String.format("구입한 콜라 개수 : %d | 구입한 사이다 개수 : %d | 구입한 환타 개수 : %d\n잔액 :%d", cokeStock, cyderStock, fantaStock, money);
+		String message = String.format("구입한 콜라 개수 : %d | 구입한 사이다 개수 : %d | 구입한 환타 개수 : %d\n잔액 :%d", cokeStock, cyderStock, fantaStock, myMoney);
 		return message;
 	}
 
